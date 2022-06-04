@@ -41,9 +41,9 @@ boolean isValidExpression(char *expression) {
 	for(i=strlen(expression)-1 ; i>=0 ; i--)
     {
         if(!isdigit(expression[i]) 	&& expression[i] != '-' && expression[i] != '+' 
-			        && expression[i] != '/' && expression[i] != '*' 
+			        && expression[i] != '/' && expression[i] != '*' && expression[i] != 'p'
 			        && expression[i] != '^' && expression[i] != '%' && expression[i] != 'v' 
-					&& expression[i] != ',' && expression[i] != '(' && expression[i] != ')'
+					&& expression[i] != ',' && expression[i] != '(' && expression[i] != ')' 
             ) 
         {
         	gotoxy(15, 5);

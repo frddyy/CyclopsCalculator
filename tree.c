@@ -55,6 +55,10 @@ double calculate(address root, boolean *isSuccess)
                 return (calculate(root->leftChild,isSuccess))/100;
                 break;
             }
+            case 'p':{
+                return (calculate(root->leftChild,isSuccess))*PI;
+                break;
+            }
             case 'v':{
                 return sqrt(calculate(root->rightChild,isSuccess));
                 break;
@@ -101,7 +105,7 @@ int searchOperator(char str[], int start, int end)
 				posPlusOrSub = i;
 				numPlusOrSub++;
 			}
-			else if(str[i] == '*' || str[i] == '/' || str[i] == '%')
+			else if(str[i] == '*' || str[i] == '/' || str[i] == '%' || str[i] == 'p')
 			{
 				posDivOrMul = i;
 				numDivOrMul++;

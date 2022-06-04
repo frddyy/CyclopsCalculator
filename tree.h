@@ -21,6 +21,7 @@
 #include <math.h> // Untuk menggunakan fungsi matematika
 #include "boolean.h"
 
+#define PI 3.14159265359
 #define MAX 0x3f3f3f3f
 
 typedef struct tElmtNode *address; // Memberi nama alias alamat dari struct tElmtNode dengan nama address
