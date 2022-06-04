@@ -1,0 +1,18 @@
+{============================================================}
+|                          CREDIT                            |
+<============================================================>
+|                                                            |
+|                          AUTHOR                            |
+|	    Raka Mahardika Maulana	[211524056]          |
+|	    Mochamad Ferdy Fauzan	[211524049]          |
+|	    Muhammad Daffa Raihandika	[211425050]          |
+|                                                            |
+|          JURUSAN TEKNIK KOMPUTER DAN INFORMATIKA           |
+|                PRODI D-IV TEKNIK INFORMATIKA               |
+|                  POLITEKNIK NEGERI BANDUNG                 |
+|                           2022                             |
+|                                                            |
+|       Copyright(c)2022 DreamTeam.All rights reserved.      |
+<============================================================>
+|                                                            |
+@============================================================>
