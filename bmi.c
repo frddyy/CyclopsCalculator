@@ -90,8 +90,13 @@ void inputBMI(dataBMI data){
 	gotoxy(27,8);
 	scanf("%f",&data.height);
 	data.bmi = calculateBMI(data);
-	resultBMI(data);
-	saveBmiHistory(&data.height, &data.weight, &data.bmi);
+	if(data.height > 0 && data.weight > 0){	
+		resultBMI(data);
+		saveBmiHistory(&data.height, &data.weight, &data.bmi);
+	}else{
+		gotoxy(6,12);
+		printf("Invalid Input!!\n");
+	}
 }
 
 /**

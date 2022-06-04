@@ -46,7 +46,8 @@ boolean isValidExpression(char *expression) {
 					&& expression[i] != ',' && expression[i] != '(' && expression[i] != ')'
             ) 
         {
-			printf("Wrong input!!\n");
+        	gotoxy(15, 5);
+			printf("Invalid input!!\n");
 			return false;				
 		}
     }
