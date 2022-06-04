@@ -24,10 +24,10 @@ int main(int argc, char *argv[]) {
 	boolean isSuccess;
 	dataBMI data;
 
-//	PlaySound(TEXT("bin/Chipmunk.wav"),NULL,SND_SYNC);
+	PlaySound(TEXT("bin/Chipmunk.wav"),NULL,SND_SYNC);
 	
-//	splashScreen();
-//	getch();
+	splashScreen();
+	getch();
 	
 	menu:
 		do{
