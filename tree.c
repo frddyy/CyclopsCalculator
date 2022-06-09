@@ -25,7 +25,7 @@ double calculate(address root, boolean *isSuccess)
 {
 	// root adalah operator
     if(root->isOperator){
-    	// Tentukan operand dan hitung
+    	// Melakukan perhitungan
         switch(root->opr){
             case '+':{
                 return calculate(root->leftChild,isSuccess) + calculate(root->rightChild,isSuccess);
@@ -69,21 +69,59 @@ double calculate(address root, boolean *isSuccess)
     return root->digit;
 }
 
+ /**
+ * Tanggal		: 22-05-2022
+ * Author 		: MFF
+ * Deskripsi 	: Fungsi ini bertujuan untuk melakukan cek karakter pertama yang ada pada expression dan mengembalikan nilai kode ASCII operand yang paling awal
+ */
+double checkExpression(char str[],int start,int end){
+    int i;	// iterator
+    int flag = 1;	// sebagai penanda untuk elemen pertama
+    int secondFlag = 0;	// sebagai penanda jika terdapat bilangan desimal
+    double sum = 0;	// hasil konversi karakter menjadi integer
+    double divFactor = 10.0;	// bertambah 10x lipat semakin ke posisi kanan dari simbol desimal
+    
+    // jika elemen pertama merupakan minus
+    if(str[start] == '-'){
+        flag = -1;
+        start++;
+    }
+    for(i = start; i <= end; i++){
+    	// jika elemen ke i bukan merupakan operand dan desimal
+        if(!isdigit(str[i]) && str[i] != '.') 
+			return MAX;
+		
+		// jika elemen ke i merupakan '.'
+        if(str[i] == '.'){
+        	secondFlag++;
+        	i++;
+		}
+		
+		if(!secondFlag){	// jika tidak terdapat bilangan desimal
+        	sum = sum * 10 + str[i] - '0';
+		}else{	// jika terdapat bilangan desimal
+			sum = sum + (str[i] - '0') / divFactor;
+			divFactor *= 10;
+		}
+    }
+    return sum * flag;
+}
+
 /**
  * Modified from https://www.programmersought.com/article/95294413292/
  * Tanggal		: 21-05-2022
  * Author		: MFF
  * Deskripsi 	: Modul ini bertujuan untuk menemukan operator berdasarkan prioritasnya
- *				  Mengembalikan nilai posisi operator ke dalam string	
+ *				  Mengembalikan nilai posisi operator
  */
 int searchOperator(char str[], int start, int end)
 {
-	int posPlusOrSub = 0;//Position of plus and minus signs 
-    int numPlusOrSub = 0;//Number of plus and minus signs 
-    int posDivOrMul = 0;//Multiply and divide and percenting sign position 
-    int numDivOrMul = 0;//Number of multiplication and division and percenting numbers
-    int posPowOrRoot = 0; // Power and square root sign position
-    int numPowOrRoot = 0; // Number of the result after powering or square rooting
+	int posPlusOrSub = 0;	// untuk menentukan posisi dari operator tambah atau kurang
+    int numPlusOrSub = 0;	// untuk mengetahui jumlah terdapat operator tambah atau kurang
+    int posDivOrMul = 0;	// untuk menentukan posisi dari operator kali, bagi, persen, atau pi
+    int numDivOrMul = 0;	// untuk mengetahui jumlah terdapat operator kali, bagi, persen, atau pi
+    int posPowOrRoot = 0; 	// untuk menentukan posisi dari operator pangkat atau akar
+    int numPowOrRoot = 0; 	// untuk mengetahui jumlah terdapat operator pangkat atau akar
  
     int in_brackets = 0; //Identifiers not in parentheses 
     
@@ -98,12 +136,13 @@ int searchOperator(char str[], int start, int end)
     	{
     		if(str[i] == '+' || str[i] == '-')
     		{
-    			posPlusOrSub = i;
-    			numPlusOrSub++;
-			}else if(str[i] == '(' || str[i-1] == ')')
-			{
-				posPlusOrSub = i;
-				numPlusOrSub++;
+    			if(i != start && isdigit(str[i-1])){
+	    			posPlusOrSub = i;
+	    			numPlusOrSub++;
+				}else if(str[i-1] == '(' || str[i-1] == ')'){
+	    			posPlusOrSub = i;
+	    			numPlusOrSub++;
+				}
 			}
 			else if(str[i] == '*' || str[i] == '/' || str[i] == '%' || str[i] == 'p')
 			{
@@ -117,7 +156,7 @@ int searchOperator(char str[], int start, int end)
 		}
 	}
 	
-	int posOprPrior = -1;
+	int posOprPrior = -1;	// untuk menentukan prioritas posisi operator
 	
 	if(numPlusOrSub)
 		posOprPrior = posPlusOrSub;
@@ -133,7 +172,7 @@ int searchOperator(char str[], int start, int end)
  * Modified From https://www.programmersought.com/article/95294413292/
  * Tanggal		: 21-05-2022
  * Author		: MFF
- * Deskripsi	: Modul ini bertujuan untuk mengembalikan alamat dari tree yang berisi ekspresi matematika
+ * Deskripsi	: Modul ini bertujuan untuk membuat tree
  */
 address buildTree(char str[], int start, int end)
 {
@@ -144,6 +183,7 @@ address buildTree(char str[], int start, int end)
 	
 	double digit = checkExpression(str, start, end);
 	
+	// jika elemen pertama merupakan operand
 	if(digit != MAX)
 	{
 		root->isOperator = false;
@@ -153,13 +193,15 @@ address buildTree(char str[], int start, int end)
 		return root;
 	}
 	
+	// menentukan posisi parent/root
 	int posRoot = searchOperator(str, start, end);
 	
+	// jika tidak terdapat operator
 	if(posRoot == -1)
 		return buildTree(str, start + 1, end - 1);
 	
-	root->isOperator = true;
-	root->opr = str[posRoot];
+	root->isOperator = true;	// operator pada parent/root
+	root->opr = str[posRoot];	// value untuk parent/root diisi oleh string pada elemen ke-posRoot
 	root->leftChild = buildTree(str, start, posRoot-1);
 	root->rightChild = buildTree(str, posRoot + 1, end);
 	

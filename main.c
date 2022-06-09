@@ -38,21 +38,24 @@ int main(int argc, char *argv[]) {
 				do{	
 					system("cls");
 					showStdCalc();
-					createCalculator(&calculator);
-					insertExpression(&calculator);
+					createCalculator(&calculator);	// set nilai default pada attribut yang ada dalam struct Calculator
+					insertExpression(&calculator);	// user melakukan input
+					// cek validasi ekspresi
 					if(!isValidExpression(calculator.expression)){
 						getch();
 						system("cls");
 						goto menu;
 					}else{
-						checkExpression(calculator.expression, 0, strlen(calculator.expression)-1);
-						calculator.expressionTree = buildTree(calculator.expression, 0, strlen(calculator.expression)-1);
-						boolean isSuccess = isCalculateSuccess(&calculator, calculator.expressionTree);
-						printResult(calculator, isSuccess, calculator.expressionTree);
+						checkMinAtFirst(calculator.expression);	// cek elemen pertama pada ekspresi matematika
+						calculator.expressionTree = buildTree(calculator.expression, 0, strlen(calculator.expression)-1);	// untuk membuat tree
+						boolean isSuccess = isCalculateSuccess(&calculator, calculator.expressionTree);	// melakukan perhitungan dari ekspresi matematika yang diinputkan oleh user pada tree
+						printResult(calculator, isSuccess, calculator.expressionTree);	// menampilkan hasil perhitungan
 						if(isSuccess){
+							// save history pada file
 							saveStdHistory(calculator.expression, calculator.result);
 						}
 						deleteTree(calculator.expressionTree);
+						// menanyakan kepada user apakah akan mencoba kalkulator kembali atau tidak
 						if(!isContinueCalculator()){
 							break;
 						}
@@ -65,7 +68,7 @@ int main(int argc, char *argv[]) {
 				do{
 					showBMICalc();
 					printCategories();
-					inputBMI(data);
+					inputBMI(data);	// user melakukan input pada kalkulator BMI
 					gotoxy(3,17);
 					if(!isContinueCalculator()){
 						break;

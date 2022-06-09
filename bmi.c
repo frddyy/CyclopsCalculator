@@ -19,8 +19,8 @@
  * Deskripsi 	: Fungsi ini bertujuan untuk melakukan perhitungan BMI. Fungsi ini akan mengembalikan nilai hasil perhitungan tersebut
  */
 float calculateBMI(dataBMI data) {
-	data.height = convertHeight(data);
-   	data.bmi = data.weight / (data.height * data.height);
+	data.height = convertHeight(data);	// mengkonversi tinggi dari cm ke m
+   	data.bmi = data.weight / (data.height * data.height);	// rumus BMI
    
    	return data.bmi;
 }
@@ -53,12 +53,12 @@ void resultBMI(dataBMI data){
     {  
         printf("Your BMI is considered Healthy\n");  
     }  
-    else if(data.bmi >= 25 && data.bmi <= 29.9)  
+    else if(data.bmi > 24.9 && data.bmi <= 29.9)  
     {  
         printf("Your BMI is considered Overweight\n");  
     }  
      
-    else if(data.bmi >= 30)  
+    else if(data.bmi > 29.9)  
     {  
         printf("Your BMI is considered Obese\n");  
     }  

@@ -71,6 +71,4 @@ int saveBmiHistory(float *height, float *weight, float *result);
  */
 int showBmiHistory();
 
-
-
 #endif

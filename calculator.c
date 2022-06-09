@@ -16,16 +16,16 @@
 /**
  * Tanggal		: 22-05-2022
  * Author 		: MDR
- * Deskripsi 	: Modul ini bertujuan untuk membuat list kosong yang akan digunakan untuk menampung ekspresi matematika
- * IS 			: List belum terbuat
- * FS 			: List kosong dibuat dan isi dari struct Calculator telah di set
+ * Deskripsi 	: Modul ini bertujuan untuk memberi nilai default pada attribut yang ada dalam struct Calculator
+ * IS 			: Belum terdapat nilai default
+ * FS 			: Attribut yang ada dalam struct Calculator diberi nilai default
  */
 void createCalculator(Calculator *calculator) 
 {
 	// pemberian nilai default
-	memset(calculator->expression, '\0', sizeof(calculator->expression));
-	calculator->result = 0;
-	calculator->expressionTree = (address)malloc(sizeof(struct tElmtNode));
+	memset(calculator->expression, '\0', sizeof(calculator->expression));	// untuk melakukan set string expression menjadi Null
+	calculator->result = 0;	// untuk set result menjadi 0
+	calculator->expressionTree = (address)malloc(sizeof(struct tElmtNode));	// membuat alokasi memori untuk pointer expressionTree
 }
 
 /**
@@ -40,40 +40,20 @@ boolean isValidExpression(char *expression) {
 	// Check apakah pada string terdapat simbol yang bukan operator atau tidak valid
 	for(i=strlen(expression)-1 ; i>=0 ; i--)
     {
-        if(!isdigit(expression[i]) 	&& expression[i] != '-' && expression[i] != '+' 
+        if(!isdigit(expression[i]) 	&& expression[i] != '-' && expression[i] != '+'
 			        && expression[i] != '/' && expression[i] != '*' && expression[i] != 'p'
 			        && expression[i] != '^' && expression[i] != '%' && expression[i] != 'v' 
-					&& expression[i] != ',' && expression[i] != '(' && expression[i] != ')' 
+					&& expression[i] != '.' && expression[i] != '(' && expression[i] != ')' 
             ) 
         {
         	gotoxy(15, 5);
 			printf("Invalid input!!\n");
 			return false;				
 		}
+    
     }
     
     return true;
-}
-
- /**
- * Tanggal		: 22-05-2022
- * Author 		: MFF
- * Deskripsi 	: Fungsi ini bertujuan untuk melakukan cek karakter pertama yang ada pada string.
- * 				  Jika karakter pertama merupakan '-', maka akan dikalikan oleh -1
- */
-int checkExpression(char str[],int start,int end){
-    int i;
-    int sum = 0;
-    int flag = 1;
-    if(str[start] == '-'){
-        flag = -1;
-        start++;
-    }
-    for(i = start; i <= end; i++){
-        if(!isdigit(str[i])) return MAX;
-        sum = sum * 10 + str[i] - '0';
-    }
-    return sum * flag;
 }
 
 /**
@@ -98,7 +78,7 @@ void insertExpression(Calculator *calculator) {
  * Deskripsi 	: Fungsi ini bertujuan untuk melakukan perhitungan dari ekspresi matematika yang diinputkan oleh user pada tree. 
  * 				  Fungsi ini akan mengembalikan nilai true jika perhitungan pada tree berhasil dilakukan
  */
-boolean isCalculateSuccess(Calculator *calculator, address root) {
+ boolean isCalculateSuccess(Calculator *calculator, address root) {
 	boolean isSuccess = true;
 	
 	// hitung hasil dari ekspresi pada tree
@@ -119,17 +99,17 @@ void printResult(Calculator calculator, boolean isSuccess, address root) {
 	
 	// print calculator sesuai dengan format
     if(!isSuccess){
-    	// jika proses kalkulasi tidak berhasil
+    	// jika proses perhitungan dibagi dengan 0
 		gotoxy(12,5);
         printf("= %s","Error!! Can't Divide by Zero");
     }
     else if (ceil(calculator.result) > calculator.result){
-    	// jika proses kalkulasi berhasil dan hasilnya adalah bilangan desimal
+    	// jika proses perhitungan berhasil dan hasilnya adalah bilangan desimal
 		gotoxy(15,5);
-        printf("= %f",calculator.result);
+        printf("= %.2f",calculator.result);
     }
 	else{
-		// jika proses kalkulasi berhasil dan hasilnya adalah bilangan bulat
+		// jika proses perhitungan berhasil dan hasilnya adalah bilangan bulat
 		gotoxy(15,5);
         printf("= %d",(int)calculator.result);
     }
@@ -168,4 +148,22 @@ boolean isContinueCalculator() {
             printf("Please input a valid command; y(yes), n(no)\n");
         }
     }
+}
+
+/**
+ * Tanggal		: 22-05-2022
+ * Author 		: RMM
+ * Deskripsi 	: Modul ini bertujuan untuk mengecek elemen pertama pada ekspresi matematika
+ * IS 			: Belum terdidentifikasi apabila elemen pertama pada ekspresi merupakan '-'
+ * FS 			: Terdidentifikasi apabila elemen pertama pada ekspresi merupakan '-'
+ */
+void checkMinAtFirst(char expression[]){
+	int i;
+	if(expression[0] == '-'){
+	        for(i=strlen(expression)-1 ; i>=0 ; i--){
+	                expression[i+1] = expression[i];
+	        }
+	
+	        expression[0] = '0';
+    	}
 }

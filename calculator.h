@@ -24,19 +24,11 @@ typedef struct {
 /**
  * Tanggal		: 22-05-2022
  * Author 		: MDR
- * Deskripsi 	: Modul ini bertujuan untuk membuat list kosong yang akan digunakan untuk menampung ekspresi matematika
- * IS 			: List belum terbuat
- * FS 			: List kosong dibuat dan isi dari struct Calculator telah di set
+ * Deskripsi 	: Modul ini bertujuan untuk memberi nilai default pada attribut yang ada dalam struct Calculator
+ * IS 			: Belum terdapat nilai default
+ * FS 			: Attribut yang ada dalam struct Calculator diberi nilai default
  */
 void createCalculator(Calculator *calculator);
-
- /**
- * Tanggal		: 22-05-2022
- * Author 		: MFF
- * Deskripsi 	: Fungsi ini bertujuan untuk melakukan cek karakter pertama yang ada pada string.
- * 				  Jika karakter pertama merupakan '-', maka akan dikalikan oleh -1
- */
-int checkExpression(char str[],int start,int end);
 
 /**
  * Tanggal		: 22-05-2022
@@ -81,4 +73,12 @@ boolean isContinueCalculator();
  */
 boolean isValidExpression(char *expression);
 
+/**
+ * Tanggal		: 22-05-2022
+ * Author 		: RMM
+ * Deskripsi 	: Modul ini bertujuan untuk mengecek elemen pertama pada ekspresi matematika
+ * IS 			: Belum terdidentifikasi apabila elemen pertama pada ekspresi merupakan '-'
+ * FS 			: Terdidentifikasi apabila elemen pertama pada ekspresi merupakan '-'
+ */
+void checkMinAtFirst(char expression[]);
 #endif

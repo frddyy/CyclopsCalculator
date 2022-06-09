@@ -16,7 +16,7 @@
 |	    ^ -> operator pangkat						|
 |	    v -> operator akar							|
 |	    * -> operator kali							|
-|	    / -> operator bagi							|
+|	    $ -> operator bagi							|
 |	    % -> operator persen						|
 |	    + -> operator tambah						|
 |	    - -> operator kurang						|

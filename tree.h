@@ -42,6 +42,14 @@ double calculate(address root, boolean *isSuccess);
  * 			   	  Modul ini mengembalikan nilai perhitungan ke root dan mengembalikan nilai angka jika tidak terdapat operator 
  * 			   	  dengan tipe data double
  */
+ 
+double checkExpression(char str[],int start,int end);
+ /**
+ * Tanggal		: 22-05-2022
+ * Author 		: MFF
+ * Deskripsi 	: Fungsi ini bertujuan untuk melakukan cek karakter pertama yang ada pada expression dan mengembalikan nilai kode ASCII operand yang paling awal
+ */
+ 
 int searchOperator(char str[], int start, int end);
 /**
  * Modified from https://www.programmersought.com/article/95294413292/

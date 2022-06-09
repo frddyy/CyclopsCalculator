@@ -70,6 +70,9 @@ void charToASCII(char c)
 		case 'X' :
 			printf ("%c", 174);
 			break;
+		case '$' :
+			printf("%c", 47);
+			break;
 		default :
 			printf ("%c", c);		
 	}
